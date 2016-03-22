@@ -16,7 +16,7 @@ Build a basic service that responds to a POST to /quotes, with the following req
 
     {
       "pickup_postcode":   "SW1A 1AA",
-      "delivery_postcode": "EC2A 3LT",
+      "delivery_postcode": "EC2A 3LT"
     }
 
 And responds with the following price:
@@ -33,7 +33,7 @@ The price we charge depends on the distance between two postcodes. We won't impl
 
 Hint: in java, this would be:
 
-    Long.valueOf(quote.getDeliveryPostcode(), 36) - Long.valueOf(quote.getPickupPostcode(), 36)
+    Long.valueOf("SW1A 1AA", 36) - Long.valueOf("EC2A 3LT", 36)
 
 If you have a better idea for a deterministic way of making a number from two postcodes, please feel free to use that instead.
 
