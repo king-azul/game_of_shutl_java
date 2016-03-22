@@ -38,7 +38,7 @@ public class QuoteControllerFunctionalTest {
     @Test
     public void testBasicService() throws Exception {
         Quote quoteData = new Quote("SW1A1AA", "EC2A3LT");
-        MvcResult result = this.mockMvc.perform(post("/main/quote")
+        MvcResult result = this.mockMvc.perform(post("/quote")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(quoteData)))
             .andExpect(status().isOk())
@@ -53,7 +53,7 @@ public class QuoteControllerFunctionalTest {
     @Test
     public void testVariablePricingByDistance() throws Exception {
         Quote quoteData = new Quote("SW1A1AA", "EC2A3LT");
-        MvcResult result = this.mockMvc.perform(post("/main/quote")
+        MvcResult result = this.mockMvc.perform(post("/quote")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(quoteData)))
             .andExpect(status().isOk())
@@ -65,7 +65,7 @@ public class QuoteControllerFunctionalTest {
         assertEquals(quote.getPrice(), new Long(316));
 
         quoteData = new Quote("AL15WD", "EC2A3LT");
-        result = this.mockMvc.perform(post("/main/quote")
+        result = this.mockMvc.perform(post("/quote")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(quoteData)))
             .andExpect(status().isOk())
