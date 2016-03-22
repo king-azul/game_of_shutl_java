@@ -15,15 +15,15 @@ On the name: Our old tech test was the [game of life](http://en.wikipedia.org/wi
 Build a basic service that responds to a POST to /quotes, with the following request structure:
 
     {
-      "pickup_postcode":   "SW1A 1AA",
-      "delivery_postcode": "EC2A 3LT"
+      "pickup_postcode":   "SW1A1AA",
+      "delivery_postcode": "EC2A3LT"
     }
 
 And responds with the following price:
 
     {
-      "pickup_postcode":   "SW1A 1AA",
-      "delivery_postcode": "EC2A 3LT",
+      "pickup_postcode":   "SW1A1AA",
+      "delivery_postcode": "EC2A3LT",
       "price":             316
     }
 
@@ -33,7 +33,7 @@ The price we charge depends on the distance between two postcodes. We won't impl
 
 Hint: in java, this would be:
 
-    Long.valueOf("SW1A 1AA", 36) - Long.valueOf("EC2A 3LT", 36)
+    Long.valueOf("SW1A1AA", 36) - Long.valueOf("EC2A3LT", 36)
 
 If you have a better idea for a deterministic way of making a number from two postcodes, please feel free to use that instead.
 
@@ -70,8 +70,8 @@ Another feature of Shutl is that if the vehicle is not specifed, we calculate wh
 Update the service to accept an array of products, each of which is a hash, ie:
 
     {
-      "pickup_postcode":   "SW1A 1AA",
-      "delivery_postcode": "EC2A 3LT",
+      "pickup_postcode":   "SW1A1AA",
+      "delivery_postcode": "EC2A3LT",
       "products" : [
         {
           weight: 10,
