@@ -105,3 +105,20 @@ Don't worry about working out the vehicle if there are multiple products - assum
 A change in requirements has come up - that vehicle is renamed vehicle_id.
 
 In order to not break existing clients, you and the team have decided to add a header which will allow the client to specify the version of the API they want to use. Update your service to allow a header to be passed in, and to accept/show different the correct attribute depending on the version.
+
+## Useful commands
+
+Run tests from command line:
+```
+gradle test
+```
+
+Run server locally:
+```
+gradle bootRun
+```
+
+Make quote request:
+```
+echo '{"pickupPostcode": "SW1A1AA", "deliveryPostcode": "EC2A3LT" }' | curl -d @- http://localhost:8080/quote --header "Content-Type:application/json"
+```
