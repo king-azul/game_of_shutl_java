@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -36,12 +36,44 @@ public class QuoteControllerFunctionalTest {
     }
 
     @Test
-    public void testMainControllerAction() throws Exception {
-        MvcResult result = this.mockMvc.perform(get("/main/quote"))
+    public void testBasicService() throws Exception {
+        Quote quoteData = new Quote("SW1A1AA", "EC2A3LT");
+        MvcResult result = this.mockMvc.perform(post("/main/quote")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(quoteData)))
             .andExpect(status().isOk())
             .andReturn();
 
         Quote quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
-        assertEquals(quote.getPickupPostcode(), "SW1A 1AA");
+        assertEquals(quote.getPickupPostcode(), "SW1A1AA");
+        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
+        assertEquals(quote.getPrice(), new Long(316));
+    }
+
+    @Test
+    public void testVariablePricingByDistance() throws Exception {
+        Quote quoteData = new Quote("SW1A1AA", "EC2A3LT");
+        MvcResult result = this.mockMvc.perform(post("/main/quote")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(quoteData)))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        Quote quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
+        assertEquals(quote.getPickupPostcode(), "SW1A1AA");
+        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
+        assertEquals(quote.getPrice(), new Long(316));
+
+        quoteData = new Quote("AL15WD", "EC2A3LT");
+        result = this.mockMvc.perform(post("/main/quote")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(quoteData)))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
+        assertEquals(quote.getPickupPostcode(), "AL15WD");
+        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
+        assertEquals(quote.getPrice(), new Long(305));
     }
 }
