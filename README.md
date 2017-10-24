@@ -106,6 +106,11 @@ A change in requirements has come up - that vehicle is renamed vehicle_id.
 
 In order to not break existing clients, you and the team have decided to add a header which will allow the client to specify the version of the API they want to use. Update your service to allow a header to be passed in, and to accept/show different the correct attribute depending on the version.
 
+
+# Dependencies
+
+- `gradle`: make sure is correctly installed on your machine. `brew` can help you with the installation.
+
 ## Useful commands
 
 Run tests from command line:
