@@ -6,8 +6,6 @@ Throughout the test we're looking for great java style, driving your code throug
 
 Please don't spend more than 90 minutes on the test - it's fine not to complete all the features - just make sure that the features you do complete are done to a standard that you're happy with. Please complete the features in order.
 
-On the name: Our old tech test was the [game of life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life) - but the Game of Shutl is much more interesting :)
-
 ## Completed Features
 
 ### Basic Service
