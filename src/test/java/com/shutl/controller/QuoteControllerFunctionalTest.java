@@ -45,14 +45,14 @@ public class QuoteControllerFunctionalTest {
             .andReturn();
 
         Quote quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
-        assertEquals(quote.getPickupPostcode(), "SW1A1AA");
-        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
-        assertEquals(quote.getPrice(), new Long(316));
+        assertEquals("SW1A1AA", quote.getPickupPostcode());
+        assertEquals("EC2A3LT", quote.getDeliveryPostcode());
+        assertEquals(new Long(316), quote.getPrice());
     }
 
     @Test
     public void testVariablePricingByDistance() throws Exception {
-        Quote quoteData = new Quote("SW1A1AA", "EC2A3LT");
+        Quote quoteData = new Quote("AL15WD", "EC2A3LT");
         MvcResult result = this.mockMvc.perform(post("/quote")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(quoteData)))
@@ -60,20 +60,8 @@ public class QuoteControllerFunctionalTest {
             .andReturn();
 
         Quote quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
-        assertEquals(quote.getPickupPostcode(), "SW1A1AA");
-        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
-        assertEquals(quote.getPrice(), new Long(316));
-
-        quoteData = new Quote("AL15WD", "EC2A3LT");
-        result = this.mockMvc.perform(post("/quote")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(quoteData)))
-            .andExpect(status().isOk())
-            .andReturn();
-
-        quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
-        assertEquals(quote.getPickupPostcode(), "AL15WD");
-        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
-        assertEquals(quote.getPrice(), new Long(305));
+        assertEquals("AL15WD", quote.getPickupPostcode());
+        assertEquals("EC2A3LT", quote.getDeliveryPostcode());
+        assertEquals(new Long(305), quote.getPrice());
     }
 }
