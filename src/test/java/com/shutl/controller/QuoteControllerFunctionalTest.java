@@ -52,7 +52,7 @@ public class QuoteControllerFunctionalTest {
 
     @Test
     public void testVariablePricingByDistance() throws Exception {
-        Quote quoteData = new Quote("SW1A1AA", "EC2A3LT");
+        Quote quoteData = new Quote("AL15WD", "EC2A3LT");
         MvcResult result = this.mockMvc.perform(post("/quote")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(quoteData)))
@@ -60,18 +60,6 @@ public class QuoteControllerFunctionalTest {
             .andReturn();
 
         Quote quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
-        assertEquals(quote.getPickupPostcode(), "SW1A1AA");
-        assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
-        assertEquals(quote.getPrice(), new Long(316));
-
-        quoteData = new Quote("AL15WD", "EC2A3LT");
-        result = this.mockMvc.perform(post("/quote")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(quoteData)))
-            .andExpect(status().isOk())
-            .andReturn();
-
-        quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
         assertEquals(quote.getPickupPostcode(), "AL15WD");
         assertEquals(quote.getDeliveryPostcode(), "EC2A3LT");
         assertEquals(quote.getPrice(), new Long(305));
