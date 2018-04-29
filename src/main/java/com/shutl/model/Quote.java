@@ -41,12 +41,35 @@ public class Quote {
      Functions
     */
     private void vehicleMarkUp() {
-      System.out.println("TESTING TESTING CALL MADE!!");
-      if (this.vehicle.equals("bicycle"))this.price =  (long) (this.price * 1.1); //increases price by 10% for bicycles
+      if (this.vehicle.equals("bicycle")) this.price =  (long) (this.price * 1.1); //increases price by 10% for bicycles
       else if (this.vehicle.equals("motorbike"))  this.price =  (long) (this.price * 1.15); //increases price by 15% for motorbikes
       else if (this.vehicle.equals("parcel_car"))  this.price =  (long) (this.price * 1.2); //increases price by 20% for parcel cars
       else if (this.vehicle.equals("small_van")) this.price =  (long) (this.price * 1.3); //increases price by 20% for small vans
       else if (this.vehicle.equals("large_van"))  this.price =  (long) (this.price * 1.4); //increases price by 20% for large vans
+    }
+
+    private void vehiclePriceLimit() {//checks price bracket matches vehicle
+      if (this.price == null || this.vehicle == null || this.vehicle.equals("large_van"));
+      else if (this.vehicle.equals("bicycle") && (this.price > 500)) {
+        this.price = (long) (this.price/1.1);//removes vehicle price increase
+        setVehicle("motorbike");//sets new vehicle (and adds new vehicle price increase)
+        vehiclePriceLimit();
+      }
+      else if (vehicle.equals("motorbike") && price >  750) {
+        this.price = (long) (this.price/1.15);//removes vehicle price increase
+        setVehicle("parcel_car");//sets new vehicle (and adds new vehicle price increase)
+        vehiclePriceLimit();
+      }
+      else if (vehicle.equals("parcel_car") && price >  1000) {
+        this.price = (long) (this.price/1.2);//removes vehicle price increase
+        setVehicle("small_van");//sets new vehicle (and adds new vehicle price increase)
+        vehiclePriceLimit();
+      }
+      else if (vehicle.equals("small_van") && price >  1500) {
+        this.price = (long) (this.price/1.3);//removes vehicle price increase
+        setVehicle("large_van");//sets new vehicle (and adds new vehicle price increase)
+        vehiclePriceLimit();
+      }
     }
 
     /*
@@ -74,7 +97,10 @@ public class Quote {
 
     public void setVehicle(String vehicle) {
       this.vehicle = vehicle;
-      if (price != null) vehicleMarkUp();
+      if (price != null) {
+        vehicleMarkUp();
+        vehiclePriceLimit();
+      }
     }
 
     public Long getPrice() {
@@ -83,5 +109,6 @@ public class Quote {
 
     public void setPrice(Long price) {
         this.price = price;
+        if (this.vehicle != null) vehiclePriceLimit();
     }
 }

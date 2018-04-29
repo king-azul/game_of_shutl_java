@@ -144,4 +144,24 @@ public class QuoteControllerFunctionalTest {
             assertEquals("large_van", quote.getVehicle());
             assertEquals(new Long((long) (305 * 1.4)), quote.getPrice());
         }
+
+        @Test
+        public void testVehiclePriceLimit() throws Exception {
+            Quote quoteData = new Quote("AL15WD", "EC2A3LT", "motorbike");
+            MvcResult result = this.mockMvc.perform(post("/quote")
+                    .contentType("application/json")
+                    .content(objectMapper.writeValueAsString(quoteData)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+            Quote quote = objectMapper.readValue(result.getResponse().getContentAsString(), Quote.class);
+            assertEquals("AL15WD", quote.getPickupPostcode());
+            assertEquals("EC2A3LT", quote.getDeliveryPostcode());
+            assertEquals("motorbike", quote.getVehicle());
+            quote.setPrice(new Long(1200));
+            assertEquals("small_van", quote.getVehicle());
+            System.out.println(1200/1.15 * 1.3);
+            System.out.println(quote.getPrice());
+        }
+
 }
