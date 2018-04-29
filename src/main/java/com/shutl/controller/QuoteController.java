@@ -15,6 +15,7 @@ public class QuoteController {
     public @ResponseBody Quote quote(@RequestBody Quote quote) {
         Long price = Math.abs((Long.valueOf(quote.getDeliveryPostcode(), 36) - Long.valueOf(quote.getPickupPostcode(), 36))/100000000);
 
-        return new Quote(quote.getPickupPostcode(), quote.getDeliveryPostcode(), price);
+        if (quote.getVehicle() == null) return new Quote(quote.getPickupPostcode(), quote.getDeliveryPostcode(), price);
+        else return new Quote(quote.getPickupPostcode(), quote.getDeliveryPostcode(), quote.getVehicle(), price);
     }
 }
